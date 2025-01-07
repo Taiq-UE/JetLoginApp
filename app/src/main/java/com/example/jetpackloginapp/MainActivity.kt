@@ -1,5 +1,8 @@
 package com.example.jetpackloginapp
 
+import com.example.jetpackloginapp.ui.theme.LightSeledin
+import com.example.jetpackloginapp.ui.theme.DarkerSeledin
+import com.example.jetpackloginapp.ui.theme.DarkSeledin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,6 +28,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen() {
     var email by remember { mutableStateOf("") }
@@ -39,7 +43,7 @@ fun LoginScreen() {
     ) {
 
         Icon(
-            painter = painterResource(id = R.drawable.welcome_back),
+            painter = painterResource(id = R.drawable.ic_back),
             contentDescription = null,
             modifier = Modifier.size(80.dp)
         )
@@ -47,12 +51,13 @@ fun LoginScreen() {
 
         Text(
             text = "Welcome Back",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
+            color = LightSeledin
         )
         Text(
             text = "Login to your account",
             style = MaterialTheme.typography.bodyMedium,
-
+            color = DarkSeledin
         )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -60,58 +65,69 @@ fun LoginScreen() {
             value = email,
             onValueChange = { email = it },
             label = { Text("Email address") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = DarkerSeledin,
+                unfocusedBorderColor = DarkSeledin,
+                focusedLabelColor = DarkerSeledin,
+                cursorColor = DarkerSeledin
+            )
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = DarkerSeledin,
+                unfocusedBorderColor = DarkSeledin,
+                focusedLabelColor = DarkerSeledin,
+                cursorColor = DarkerSeledin
+            )
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /* Obsługa logowania */ },
-            modifier = Modifier.fillMaxWidth()
+            onClick = {},
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = LightSeledin)
         ) {
             Text("Login")
         }
         Spacer(modifier = Modifier.height(8.dp))
 
-        TextButton(onClick = { /* Obsługa zapomnianego hasła */ }) {
-            Text("Forgot password?")
+        TextButton(onClick = {}) {
+            Text("Forgot password?", color = DarkerSeledin)
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "Or sign in with", style = MaterialTheme.typography.bodySmall)
+        Text(text = "Or sign in with", style = MaterialTheme.typography.bodySmall, color = DarkerSeledin)
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Facebook Button
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .size(48.dp)
-                    .clickable { /* Logowanie przez Facebook */ }
+                    .clickable {}
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_facebook),
+                    painter = painterResource(id = R.drawable.ic_fb),
                     contentDescription = "Facebook",
                     tint = Color.Unspecified,
                     modifier = Modifier.size(60.dp)
                 )
             }
 
-            // Google Button
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .size(48.dp)
-                    .clickable { /* Logowanie przez Google */ }
+                    .clickable {}
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_google),
@@ -122,12 +138,11 @@ fun LoginScreen() {
                 )
             }
 
-            // X Button
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .size(48.dp)
-                    .clickable { /* Logowanie przez X */ }
+                    .clickable {}
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_x),
